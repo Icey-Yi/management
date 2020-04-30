@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import { Link } from 'umi'
 import { Row, Col, Card, Button, Table, Form, Input, Select, List } from 'antd'
 import { PlusOutlined } from '@ant-design/icons';
 import "./index.less"
@@ -110,7 +111,7 @@ class Management extends Component {
       <div className="home-wrap">
         <Card style={{ height: 550 }}>
           <div className="card-header">
-            <Button icon={<PlusOutlined />}>添加</Button>
+            <Link to="/custom/editCustom/create"><Button icon={<PlusOutlined />}>添加</Button></Link>
             <Search
               placeholder="input search text"
               onSearch={value => console.log(value)}

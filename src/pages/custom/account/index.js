@@ -44,7 +44,7 @@ class Account extends Component {
         title: '交易账号',
         dataIndex: 'account',
         key: 'account',
-        render: text=><a href={`/#/custom/editCustom/${text}`}>{text}</a>,
+        render: text=><a href={`/#/custom/editAccount/${text}`}>{text}</a>,
         ellipsis: true,
       },
       {
@@ -125,7 +125,7 @@ class Account extends Component {
         title: '详情',
         dataIndex: 'details',
         key: 'details',
-        render: (text, index) => <a href={`/#/custom/editCustom/${index.account}`}>{text}</a>,
+        render: (text, index) => <a href={`/#/custom/editAccount/${index.account}`}>{text}</a>,
         ellipsis: true,
       }
     ];

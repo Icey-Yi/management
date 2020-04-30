@@ -7,15 +7,33 @@
 
   .logo-wrap {
     height: 64px;
-    width: 200px;
-    background: #002140; 
+    width: 100%;
+    background: #002140;
     display: inline-block;
     font-size: @font-size;
+
     img {
       margin: 18px 25px;
       width: 32px;
       margin-right: 14px;
     }
   }
-}
 
+  .menu {
+    .ant-menu-submenu-title {
+      padding: 0 0 0 32px;
+      .anticon{
+        font-size: 16px;
+      }
+    }
+    
+
+    .menutitle {
+      display: none;
+    }
+
+    .ant-menu-submenu-arrow {
+      display: none;
+    }
+  }
+}

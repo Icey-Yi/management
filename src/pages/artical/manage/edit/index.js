@@ -116,7 +116,7 @@ class Edit extends Component {
               </Form.Item></Col>
             </Row>
           </Form>
-          <Button icon={<PlusOutlined />} style={{ color: "#1890ff", borderColor: "#1890ff" }}>新建</Button>
+          <a href="/artical/manage/create/6"><Button icon={<PlusOutlined />} style={{ color: "#1890ff", borderColor: "#1890ff" }}>新建</Button></a>
           <Table columns={columns} dataSource={this.state.data} onChange={this.handleChange} />
         </Card>
       </div>

@@ -105,7 +105,7 @@ class Account extends Component {
     if(data.extradata){
     const extralist= <Radio.Group buttonStyle="outline">{data.extradata.map((item,index)=>{return (<Radio.Button key={index} value={item}>{item}</Radio.Button>)})}</Radio.Group>
       return (
-        <Card className="card-wrap" title={data.title} extra={extralist} style={{ height: 104}}></Card>
+        <Card className="account-card-wrap" title={data.title} extra={extralist} style={{ height: 104}}></Card>
       )
     }
     let extra;
@@ -140,7 +140,7 @@ class Account extends Component {
         title: '交易账号',
         dataIndex: 'id',
         key: 'id',
-        render: text => <a>{text}</a>,
+        render: text => <a href={`custom/editCustom/${text}`}>{text}</a>,
         ellipsis: true,
       },
       {
@@ -212,7 +212,7 @@ class Account extends Component {
           </Col>
         </Row>
         {this.getCardNode(this.state.card3)}
-        <Card className="card-wrap" title="在线账户" bordered={false} style={{ height: 752 }}>
+        <Card className="account-card-wrap" title="在线账户" bordered={false} style={{ height: 752 }}>
         <Table columns={columns} dataSource={this.state.card4.data} onChange={this.handleChange} />
         </Card>
       </div >

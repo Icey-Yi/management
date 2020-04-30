@@ -165,7 +165,7 @@ class Open extends Component {
         title: '详情',
         dataIndex: 'details',
         key: 'details',
-        render: (text, record) => <a href={`/#/artical/manage/create/${record.id}`}>{text}</a>,
+        render: (text, record) => <a href={`#/approval/stepForm/${record.id}`}>{text}</a>,
         ellipsis: true,
       }
     ];

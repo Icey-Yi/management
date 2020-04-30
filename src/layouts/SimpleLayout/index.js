@@ -1,15 +1,13 @@
-import React, {Component, Fragment} from 'react'
+import React, {Component} from 'react'
 import './index.less'
 
 class SimpleLayout extends Component {
     render() {
         const { children } = this.props
-        //console.log(children);
         return(
-            <Fragment>
-                SimpleLayout
-                {children}
-            </Fragment>
+            <div className="simple-main-wrap">
+               {children}
+            </div>
         )
     }
 }
