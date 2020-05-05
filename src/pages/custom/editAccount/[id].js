@@ -1,182 +1,45 @@
 import React, { Component } from 'react'
 import { Card, Row, Col, Button, Tabs, Tag, Table } from 'antd'
-
+import { connect } from 'umi'
 import "./index.less"
 
-
+@connect(({ editAccount, loading }) => ({ editAccount, loading: loading.effects['editAccount/getData'] }))
 class EditAccountId extends Component {
 
-  state = {
-    filteredInfo: null,
-    sortedInfo: null,
-    data: {
-      "90019544": {
-        basicInfo: {
-          status: "启用中", type: "个人", balance: "200.00", netaccountvalue: "50,000.00",
-          marginratio: "10%", useablemargin: "1,452.42", createtime: "2017-07-04"
-        },
-        customerInfo: {
-          customerId: "C1011000", nationality: "中国", name: "徐小松", birthday: "1991-10-06",
-          mobilePhone: "13800001111", mail: "7821423214@qq.com", address: "深圳市南山区沙发上课付款撒谎发卡号发来设计费"
-        },
-        tradeInfo1: [
-          {
-            tradeId: "7896556", account: 90019544, type: "买", kind:"EURUSD", vol:"1.00",price:"1078.91", 
-            sl:"0.00", tp:"0.00",commission:"2.0",interest:"0.00", profit:"853.26", createtime: "2018-07-06"
-          },
-          {
-            tradeId: "7896556", account: 90019544, type: "买", kind:"EURUSD", vol:"1.00",price:"1078.91", 
-            sl:"0.00", tp:"0.00",commission:"2.0",interest:"0.00", profit:"853.26", createtime: "2018-07-06"
-          },
-          {
-            tradeId: "7896556", account: 90019544, type: "买", kind:"EURUSD", vol:"1.00",price:"1078.91", 
-            sl:"0.00", tp:"0.00",commission:"2.0",interest:"0.00", profit:"853.26", createtime: "2018-07-06"
-          },
-          {
-            tradeId: "7896556", account: 90019544, type: "买", kind:"EURUSD", vol:"1.00",price:"1078.91", 
-            sl:"0.00", tp:"0.00",commission:"2.0",interest:"0.00", profit:"-853.26", createtime: "2018-07-06"
-          }
-        ],
-        tradeInfo2: [
-          {
-            tradeId: "7896556", account: 90019544, type: "买", kind:"EURUSD", vol:"1.00",price:"1078.91", 
-            sl:"0.00", tp:"0.00",commission:"2.0",interest:"0.00", profit:"853.26", createtime: "2018-07-06"
-          },
-          {
-            tradeId: "7896556", account: 90019544, type: "买", kind:"EURUSD", vol:"1.00",price:"1078.91", 
-            sl:"0.00", tp:"0.00",commission:"2.0",interest:"0.00", profit:"-853.26", createtime: "2018-07-06"
-          }
-        ],
-        tradeInfo3: [
-          {
-            tradeId: "7896556", account: 90019544, type: "买", kind:"EURUSD", vol:"1.00",price:"1078.91", 
-            sl:"0.00", tp:"0.00",commission:"2.0",interest:"0.00", profit:"853.26", createtime: "2018-07-06"
-          },
-          {
-            tradeId: "7896556", account: 90019544, type: "买", kind:"EURUSD", vol:"1.00",price:"1078.91", 
-            sl:"0.00", tp:"0.00",commission:"2.0",interest:"0.00", profit:"-853.26", createtime: "2018-07-06"
-          }
-        ]
-      },
-      "90019545": {
-        basicInfo: {
-          status: "启用中", type: "个人", balance: "200.00", netaccountvalue: "50,000.00",
-          marginratio: "10%", useablemargin: "1,452.42", createtime: "2017-07-04"
-        },
-        customerInfo: {
-          customerId: "C1011000", nationality: "中国", name: "徐小松", birthday: "1991-10-06",
-          mobilePhone: "13800001111", mail: "7821423214@qq.com", address: "深圳市南山区沙发上课付款撒谎发卡号发来设计费"
-        },
-        tradeInfo1: [
-          {
-            tradeId: "7896556", account: 90019544, type: "买", kind:"EURUSD", vol:"1.00",price:"1078.91", 
-            sl:"0.00", tp:"0.00",commission:"2.0",interest:"0.00", profit:"853.26", createtime: "2018-07-06"
-          },
-          {
-            tradeId: "7896556", account: 90019544, type: "买", kind:"EURUSD", vol:"1.00",price:"1078.91", 
-            sl:"0.00", tp:"0.00",commission:"2.0",interest:"0.00", profit:"853.26", createtime: "2018-07-06"
-          },
-          {
-            tradeId: "7896556", account: 90019544, type: "买", kind:"EURUSD", vol:"1.00",price:"1078.91", 
-            sl:"0.00", tp:"0.00",commission:"2.0",interest:"0.00", profit:"853.26", createtime: "2018-07-06"
-          },
-          {
-            tradeId: "7896556", account: 90019544, type: "买", kind:"EURUSD", vol:"1.00",price:"1078.91", 
-            sl:"0.00", tp:"0.00",commission:"2.0",interest:"0.00", profit:"-853.26", createtime: "2018-07-06"
-          }
-        ],
-        tradeInfo2: [
-          {
-            tradeId: "7896556", account: 90019544, type: "买", kind:"EURUSD", vol:"1.00",price:"1078.91", 
-            sl:"0.00", tp:"0.00",commission:"2.0",interest:"0.00", profit:"853.26", createtime: "2018-07-06"
-          },
-          {
-            tradeId: "7896556", account: 90019544, type: "买", kind:"EURUSD", vol:"1.00",price:"1078.91", 
-            sl:"0.00", tp:"0.00",commission:"2.0",interest:"0.00", profit:"-853.26", createtime: "2018-07-06"
-          }
-        ],
-        tradeInfo3: [
-          {
-            tradeId: "7896556", account: 90019544, type: "买", kind:"EURUSD", vol:"1.00",price:"1078.91", 
-            sl:"0.00", tp:"0.00",commission:"2.0",interest:"0.00", profit:"853.26", createtime: "2018-07-06"
-          },
-          {
-            tradeId: "7896556", account: 90019544, type: "买", kind:"EURUSD", vol:"1.00",price:"1078.91", 
-            sl:"0.00", tp:"0.00",commission:"2.0",interest:"0.00", profit:"-853.26", createtime: "2018-07-06"
-          }
-        ]
-      },
-      "90019546": {
-        basicInfo: {
-          status: "已停用", type: "个人", balance: "200.00", netaccountvalue: "50,000.00",
-          marginratio: "10%", useablemargin: "1,452.42", createtime: "2017-07-04"
-        },
-        customerInfo: {
-          customerId: "C1011000", nationality: "中国", name: "徐小松", birthday: "1991-10-06",
-          mobilePhone: "13800001111", mail: "7821423214@qq.com", address: "深圳市南山区沙发上课付款撒谎发卡号发来设计费"
-        },
-        tradeInfo1: [
-          {
-            tradeId: "7896556", account: 90019544, type: "买", kind:"EURUSD", vol:"1.00",price:"1078.91", 
-            sl:"0.00", tp:"0.00",commission:"2.0",interest:"0.00", profit:"853.26", createtime: "2018-07-06"
-          },
-          {
-            tradeId: "7896556", account: 90019544, type: "买", kind:"EURUSD", vol:"1.00",price:"1078.91", 
-            sl:"0.00", tp:"0.00",commission:"2.0",interest:"0.00", profit:"853.26", createtime: "2018-07-06"
-          },
-          {
-            tradeId: "7896556", account: 90019544, type: "买", kind:"EURUSD", vol:"1.00",price:"1078.91", 
-            sl:"0.00", tp:"0.00",commission:"2.0",interest:"0.00", profit:"853.26", createtime: "2018-07-06"
-          },
-          {
-            tradeId: "7896556", account: 90019544, type: "买", kind:"EURUSD", vol:"1.00",price:"1078.91", 
-            sl:"0.00", tp:"0.00",commission:"2.0",interest:"0.00", profit:"-853.26", createtime: "2018-07-06"
-          }
-        ],
-        tradeInfo2: [
-          {
-            tradeId: "7896556", account: 90019544, type: "买", kind:"EURUSD", vol:"1.00",price:"1078.91", 
-            sl:"0.00", tp:"0.00",commission:"2.0",interest:"0.00", profit:"853.26", createtime: "2018-07-06"
-          },
-          {
-            tradeId: "7896556", account: 90019544, type: "买", kind:"EURUSD", vol:"1.00",price:"1078.91", 
-            sl:"0.00", tp:"0.00",commission:"2.0",interest:"0.00", profit:"-853.26", createtime: "2018-07-06"
-          }
-        ],
-        tradeInfo3: [
-          {
-            tradeId: "7896556", account: 90019544, type: "买", kind:"EURUSD", vol:"1.00",price:"1078.91", 
-            sl:"0.00", tp:"0.00",commission:"2.0",interest:"0.00", profit:"853.26", createtime: "2018-07-06"
-          },
-          {
-            tradeId: "7896556", account: 90019544, type: "买", kind:"EURUSD", vol:"1.00",price:"1078.91", 
-            sl:"0.00", tp:"0.00",commission:"2.0",interest:"0.00", profit:"-853.26", createtime: "2018-07-06"
-          }
-        ]
-      }
-    }
+  componentDidMount(){
+    const { location, dispatch } = this.props;
+    const arr = location.pathname.split("/");
+    const id = arr[arr.length - 1];
+    dispatch({
+      type:'editAccount/getData',
+      payload:{id}
+    })
   }
-
+  
 
   handleChange = (pagination, filters, sorter) => {
     console.log('Various parameters', pagination, filters, sorter);
-    this.setState({
-      filteredInfo: filters,
-      sortedInfo: sorter,
-    });
+    const { dispatch } = this.props;
+    dispatch({
+      type: 'editAccount/handleChange',
+      payload: {
+        filteredInfo: filters,
+        sortedInfo: sorter,
+      }
+    })
   };
 
 
   render() {
-    const { location } = this.props;
-    const { data } = this.state;
+    const { location, editAccount, loading } = this.props;
+    const { data } = editAccount;
     const arr = location.pathname.split("/");
     const id = arr[arr.length - 1];
-    const datalist = data[id];
+    const datalist = data || {};
     const { basicInfo, customerInfo, tradeInfo1, tradeInfo2, tradeInfo3 } = datalist;
     const { TabPane } = Tabs;
 
-    let { sortedInfo, filteredInfo } = this.state;
+    let { sortedInfo, filteredInfo } = editAccount;
     sortedInfo = sortedInfo || {};
     filteredInfo = filteredInfo || {};
 
@@ -185,13 +48,13 @@ class EditAccountId extends Component {
         title: '订单号',
         dataIndex: 'tradeId',
         key: 'tradeId',
-        render:text=><a href={`/#/custom/editCustom/${text}`}>{text}</a>,
+        render: text => <a href={`/#/custom/editCustom/${text}`}>{text}</a>,
       },
       {
         title: '交易账号',
         dataIndex: 'account',
         key: 'account',
-        render: text=><a href={`/#/custom/editCustom/${text}`}>{text}</a>,   
+        render: text => <a href={`/#/custom/editCustom/${text}`}>{text}</a>,
       },
       {
         title: '类型',
@@ -261,7 +124,7 @@ class EditAccountId extends Component {
         title: '获利',
         dataIndex: 'profit',
         key: 'profit',
-        render:text=><span style={{color:`${text>0?"green":"red"}`}}>{text}</span>,
+        render: text => <span style={{ color: `${text > 0 ? "green" : "red"}` }}>{text}</span>,
         sorter: (a, b) => a.profit - b.profit,
         sortOrder: sortedInfo.columnKey === 'profit' && sortedInfo.order,
       },
@@ -277,52 +140,56 @@ class EditAccountId extends Component {
 
     return (
       <div className="home-wrap">
-        <Card title={<div><span>账户({id})</span><Tag style={{ marginLeft: "5px" }} color={basicInfo.status === '启用中' ? "green" : "red"}>{basicInfo.status}</Tag></div>} 
-        extra={<Button type={basicInfo.status === '启用中'?"danger":"primary"}>{basicInfo.status === '启用中'?"停用":"启用"}</Button>}>
-          <Card title="基本信息" className="card-wrap">
-            <Row gutter={16}>
-              <Col span={8}>
-                <p><span>账户状态:</span><span className="price" style={{ color: basicInfo.status === '启用中' ? "green" : "red" }}>{basicInfo.status}</span></p>
-                <p><span>账户余额:</span><span className="price">{basicInfo.balance}</span></p>
-                <p><span>保证金比率:</span><span className="price">{basicInfo.marginratio}</span></p>
-                <p><span>创建时间:</span><span className="price">{basicInfo.createtime}</span></p>
-              </Col>
-              <Col span={8} offset={4}>
-                <p><span>账户类型:</span><span className="price">{basicInfo.type}</span></p>
-                <p><span>账户净值:</span><span className="price">{basicInfo.netaccountvalue}</span></p>
-                <p><span>可用保证金:</span><span className="price">{basicInfo.useablemargin}</span></p>
-              </Col>
-            </Row>
-          </Card>
-          <Card title="客户信息" className="card-wrap">
-            <Row gutter={16}>
-              <Col span={8}>
-                <p><span>客户编号:</span><a className="price" href={`/custom/editCustom/${customerInfo.customerId}`}>{customerInfo.customerId}</a></p>
-                <p><span>出生日期:</span><span className="price">{customerInfo.birthday}</span></p>
-                <p><span>手机号码:</span><span className="price">{customerInfo.mobilePhone}</span></p>
-                <p><span>住址:</span><span className="price">{customerInfo.address}</span></p>
-              </Col>
-              <Col span={8} offset={4}>
-                <p><span>国籍:</span><span className="price">{customerInfo.nationality}</span></p>
-                <p><span>姓名:</span><span className="price">{customerInfo.name}</span></p>
-                <p><span>电子邮箱:</span><span className="price">{customerInfo.mail}</span></p>
-              </Col>
-            </Row>
-          </Card>
-          <Card title="交易订单" className="card-wrap">
-            <Tabs defaultActiveKey="1">
-              <TabPane tab="持仓单" key="1">
-                <Table columns={columns} dataSource={tradeInfo1} onChange={this.handleChange} />
-              </TabPane>
-              <TabPane tab="挂单" key="2">
-              <Table columns={columns} dataSource={tradeInfo2} onChange={this.handleChange} />
-              </TabPane>
-              <TabPane tab="平仓单" key="3">
-              <Table columns={columns} dataSource={tradeInfo3} onChange={this.handleChange} />
-              </TabPane>
-            </Tabs>
-          </Card>
-        </Card>
+        {Object.prototype.isPrototypeOf(datalist) && Object.keys(datalist).length === 0 ? 
+        <Card loading={true} title={<div><span>账户({id})</span><Tag style={{ marginLeft: "5px" }} color="red">已停用</Tag></div>}
+          extra={<Button type="primary">启用</Button>}></Card> 
+          :
+          <Card loading={loading} title={<div><span>账户({id})</span><Tag style={{ marginLeft: "5px" }} color={basicInfo.status === '启用中' ? "green" : "red"}>{basicInfo.status}</Tag></div>}
+            extra={<Button type={basicInfo.status === '启用中' ? "danger" : "primary"}>{basicInfo.status === '启用中' ? "停用" : "启用"}</Button>}>
+            <Card title="基本信息" className="card-wrap">
+              <Row gutter={16}>
+                <Col span={8}>
+                  <p><span>账户状态:</span><span className="price" style={{ color: basicInfo.status === '启用中' ? "green" : "red" }}>{basicInfo.status}</span></p>
+                  <p><span>账户余额:</span><span className="price">{basicInfo.balance}</span></p>
+                  <p><span>保证金比率:</span><span className="price">{basicInfo.marginratio}</span></p>
+                  <p><span>创建时间:</span><span className="price">{basicInfo.createtime}</span></p>
+                </Col>
+                <Col span={8} offset={4}>
+                  <p><span>账户类型:</span><span className="price">{basicInfo.type}</span></p>
+                  <p><span>账户净值:</span><span className="price">{basicInfo.netaccountvalue}</span></p>
+                  <p><span>可用保证金:</span><span className="price">{basicInfo.useablemargin}</span></p>
+                </Col>
+              </Row>
+            </Card>
+            <Card title="客户信息" className="card-wrap">
+              <Row gutter={16}>
+                <Col span={8}>
+                  <p><span>客户编号:</span><a className="price" href={`/custom/editCustom/${customerInfo.customerId}`}>{customerInfo.customerId}</a></p>
+                  <p><span>出生日期:</span><span className="price">{customerInfo.birthday}</span></p>
+                  <p><span>手机号码:</span><span className="price">{customerInfo.mobilePhone}</span></p>
+                  <p><span>住址:</span><span className="price">{customerInfo.address}</span></p>
+                </Col>
+                <Col span={8} offset={4}>
+                  <p><span>国籍:</span><span className="price">{customerInfo.nationality}</span></p>
+                  <p><span>姓名:</span><span className="price">{customerInfo.name}</span></p>
+                  <p><span>电子邮箱:</span><span className="price">{customerInfo.mail}</span></p>
+                </Col>
+              </Row>
+            </Card>
+            <Card title="交易订单" className="card-wrap">
+              <Tabs defaultActiveKey="1">
+                <TabPane tab="持仓单" key="1">
+                  <Table columns={columns} dataSource={tradeInfo1} onChange={this.handleChange} />
+                </TabPane>
+                <TabPane tab="挂单" key="2">
+                  <Table columns={columns} dataSource={tradeInfo2} onChange={this.handleChange} />
+                </TabPane>
+                <TabPane tab="平仓单" key="3">
+                  <Table columns={columns} dataSource={tradeInfo3} onChange={this.handleChange} />
+                </TabPane>
+              </Tabs>
+            </Card>
+          </Card>}
       </div >
     )
   }

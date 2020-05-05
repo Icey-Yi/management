@@ -6,7 +6,6 @@ import {
 import { Breadcrumb, Dropdown, Menu, Badge, Popover, Tabs, List, Avatar } from 'antd'
 import { Link, connect } from 'umi'
 import picSrc from './../../images/shiyi.jpg'
-import breadcrumbMap from './../../config/breadcrumbmap'
 import './index.less'
 
 @connect(({ app, loading }) => ({ app, loading }))
@@ -14,77 +13,26 @@ class Header extends Component {
   state = {
     name: "Admin",
     count: 12,
-    tab1: {
-      title: "通知",
-      data: [
-        {
-          src: "https://gw.alipayobjects.com/zos/rmsportal/ThXAXghbEsBCCSDihZxY.png",
-          title: "你收到了 14 份新周报",
-          time: "2017-08-09",
-          read: false,
-        },
-        {
-          src: "https://gw.alipayobjects.com/zos/rmsportal/OKJXDXrmkNshAMvwtvhu.png",
-          title: "你推荐的 曲妮妮 已通过第三轮面试",
-          time: "2017-08-08",
-          read: false,
-        },
-        {
-          src: "https://gw.alipayobjects.com/zos/rmsportal/kISTdvpyTAhtGxpovNWd.png",
-          title: "这种模板可以区分多种通知类型",
-          time: "2017-08-07",
-          read: true,
-        },
-        {
-          src: "https://gw.alipayobjects.com/zos/rmsportal/GvqBnKhFgObvnSGkDsje.png",
-          title: "左侧图标用于区分不同的类型",
-          time: "2017-08-07",
-          read: false,
-        },
-        {
-          src: "https://gw.alipayobjects.com/zos/rmsportal/ThXAXghbEsBCCSDihZxY.png",
-          title: "内容不要超过两行字，超出时自动截断",
-          time: "2017-08-07",
-          read: false,
-        }
-      ]
-    },
-    tab2: {
-      title: "消息",
-      data: [
-        {
-          title: "第三方紧急代码变更",
-          status: "马上到期",
-          description: "冠霖提交于 2017-01-06，需在 2017-01-07 前完成代码变更任务"
-        },
-        {
-          title: "任务名称",
-          status: "未开始",
-          description: "任务需要在 2017-01-12 20:00 前启动"
-        },
-        {
-          title: "信息安全考试",
-          status: "已耗时 8 天",
-          description: "指派竹尔于 2017-01-09 前完成更新并发布"
-        },
-        {
-          title: "ABCD 版本发布",
-          status: "已耗时 8 天",
-          description: "指派竹尔于 2017-01-09 前完成更新并发布"
-        }
-      ]
-    }
   }
 
   componentDidMount() {
-    this.getbreadcrumb(breadcrumbMap);
-
+    this.getheaderdata();
   }
 
   componentWillReceiveProps(nextProps) {
+    const {app} = this.props;
     if (nextProps.location.pathname != this.props.location.pathname) {
-      this.getbreadcrumb(breadcrumbMap, nextProps);
+      this.getbreadcrumb(app.breadCrumb, nextProps);
+    }else{
+      this.getbreadcrumb(app.breadCrumb);
     }
+  }
+
+  getheaderdata = () =>{
+    const { dispatch } = this.props
+    dispatch({
+      type: 'app/getHeaderData',
+    })
   }
 
   menufoldchange = () => {
@@ -101,7 +49,7 @@ class Header extends Component {
       const url = `${pathSnippets.slice(0, index + 1).join('/')}`;
       if (url === "") {
         return (
-          <Breadcrumb.Item key="/"><Link to="/">{data[url]}</Link></Breadcrumb.Item>
+          <Breadcrumb.Item key="/"><Link to="/console/finance">{data[url]}</Link></Breadcrumb.Item>
         )
       }
       return (<Breadcrumb.Item key={url}>{data[url]}</Breadcrumb.Item>)
@@ -118,9 +66,8 @@ class Header extends Component {
 
   render() {
     const { app } = this.props;
-    console.log(app.menufold);
     const { TabPane } = Tabs;
-    const { tab1, tab2 } = this.state;
+    const { tab1, tab2, menufold } = app;
     const content = (
       <Tabs defaultActiveKey="1" onChange={this.contentChange}>
         <TabPane tab={tab1.title} key="1">
@@ -184,7 +131,7 @@ class Header extends Component {
     return (
       <div className="header">
         <div className="header-wrap clearfix">
-          <i className="menufold" onClick={this.menufoldchange}>{app.menufold ? <MenuUnfoldOutlined /> : <MenuFoldOutlined />}</i>
+          <i className="menufold" onClick={this.menufoldchange}>{menufold ? <MenuUnfoldOutlined /> : <MenuFoldOutlined />}</i>
           <div className="message">
             <span className="bell">
               <Popover placement="bottomRight" content={content} trigger="click">

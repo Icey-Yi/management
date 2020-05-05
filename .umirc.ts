@@ -9,7 +9,7 @@ export default defineConfig({
   antd:{},
   dva:{
     immer: true,
-    hmr: true
+    hmr: true,
   },
   routes: router,
 });

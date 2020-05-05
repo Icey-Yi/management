@@ -1,21 +1,21 @@
 import React, { Component } from 'react'
 import { Row, Col, Card, Button, Modal, Form, Input, Select, List } from 'antd'
 import { PlusOutlined, ArrowUpOutlined, ArrowDownOutlined, DeleteOutlined } from '@ant-design/icons';
+import { connect } from 'umi'
 import "./index.less"
 
+@connect(({articalColumn})=>({articalColumn}))
 class Column extends Component {
   state = {
     loading: false,
     visible: false,
-    data: [
-      { title1: '栏目名', select: ['栏目名一', '栏目名二', '栏目名三', '栏目名四'], title2: '栏目描述', defaultValue: "栏目一", },
-      { title1: '栏目名', select: ['栏目名一', '栏目名二', '栏目名三', '栏目名四'], title2: '栏目描述', defaultValue: "栏目二", },
-      { title1: '栏目名', select: ['栏目名一', '栏目名二', '栏目名三', '栏目名四'], title2: '栏目描述', defaultValue: "栏目三", },
-      { title1: '栏目名', select: ['栏目名一', '栏目名二', '栏目名三', '栏目名四'], title2: '栏目描述', defaultValue: "栏目四", },
-      { title1: '栏目名', select: ['栏目名一', '栏目名二', '栏目名三', '栏目名四'], title2: '栏目描述', defaultValue: "栏目四", },
-      { title1: '栏目名', select: ['栏目名一', '栏目名二', '栏目名三', '栏目名四'], title2: '栏目描述', defaultValue: "栏目四", },
-      { title1: '栏目名', select: ['栏目名一', '栏目名二', '栏目名三', '栏目名四'], title2: '栏目描述', defaultValue: "栏目四", },
-    ],
+  }
+  
+  componentDidMount(){
+    const { dispatch } = this.props;
+    dispatch({
+      type:'articalColumn/getData'
+    })
   }
 
   showModal = () => {
@@ -33,6 +33,7 @@ class Column extends Component {
   };
 
   render() {
+    const { data } = this.props.articalColumn;
     const { visible, loading } = this.state;
     const { Option } = Select;
 
@@ -87,7 +88,7 @@ class Column extends Component {
           </Modal>
           <List
             className="list"
-            dataSource={this.state.data}
+            dataSource={data}
             renderItem={item => (
               <List.Item>
                 <Row  style={{width:'100%'}}>

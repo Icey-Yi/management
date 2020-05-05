@@ -1,6 +1,5 @@
 import React, { Component } from 'react'
 import { Card, Row, Col, Form, Input, Button, Select, DatePicker } from 'antd'
-import moment from 'moment'
 import "./index.less"
 import nationalityList from "../../../../config/nationalityList"
 
@@ -9,52 +8,10 @@ class EditCustomCreate extends Component {
 
   state = {
     idTypeList: ["护照", "身份证", "军官证", "居住证", "港澳通行证"],
-    data: {
-      "C1011000": {
-        accountType: { currency: "USD", type: "个人", loginAccount: "90019544", group: "默认账户" },
-        basicInfo: {
-          nationality: "中国", appellation: "先生", name: "徐小松", birthday: "1991-10-06",
-          address: "深圳市南山区沙发上课付款撒谎发卡号发来设计费", idtype: "身份证", idnum: "421011199111111111"
-        },
-        contactInfo: { mobilePhone: "13800001111", mail: "7821423214@qq.com", fax: "435000", homePhone: "027-8888888" },
-        bankInfo: {
-          name: "徐小松", bank: "中国银行", account: "6214123456789012", code: "234",
-          address: "中国银行深圳分行南山区支行", remarks: "备注"
-        }
-      },
-      "C1011001": {
-        accountType: { currency: "USD", type: "个人", loginAccount: "90019545", group: "账户B" },
-        basicInfo: {
-          nationality: "中国", appellation: "先生", name: "徐小乔", birthday: "1991-10-06",
-          address: "深圳市南山区沙发上课", idtype: "身份证", idnum: "421011199202222222"
-        },
-        contactInfo: { mobilePhone: "13800001111", mail: "7821423214@qq.com", fax: "435000", homePhone: "027-66666666" },
-        bankInfo: {
-          name: "徐小乔", bank: "中国银行", account: "6214123456789013", code: "236",
-          address: "中国银行深圳分行南山区支行", remarks: "备注"
-        }
-      },
-      "C1011002": {
-        accountType: { currency: "USD", type: "个人", loginAccount: "90019546", group: "默认账户" },
-        basicInfo: {
-          nationality: "中国", appellation: "先生", name: "徐大乔", birthday: "1991-10-06",
-          address: "深圳市南山区沙发上课", idtype: "身份证", idnum: "421011199202222222"
-        },
-        contactInfo: { mobilePhone: "13800001111", mail: "7821423214@qq.com", fax: "435000", homePhone: "027-66666666" },
-        bankInfo: {
-          name: "徐大乔", bank: "中国银行", account: "6214123456789013", code: "236",
-          address: "中国银行深圳分行南山区支行", remarks: "备注"
-        }
-      }
-    }
   }
 
   render() {
-    const { location } = this.props;
-    const { data, idTypeList } = this.state;
-    const arr = location.pathname.split("/");
-    const id = arr[arr.length - 1];
-    const datalist = data[id];
+    const { idTypeList } = this.state;
     const { Option } = Select;
     const { TextArea } = Input;
     const dateFormat = 'YYYY-MM-DD';
@@ -82,7 +39,7 @@ class EditCustomCreate extends Component {
                       label="基本货币"
                       rules={[{ required: true }]}
                     >
-                      <Select defaultValue={datalist?datalist.accountType.currency:""}>
+                      <Select >
                         <Option value="USD">USD</Option>
                         <Option value="RMB">RMB</Option>
                         <Option value="HKD">HKD</Option>
@@ -94,7 +51,7 @@ class EditCustomCreate extends Component {
                       label="账户类型"
                       rules={[{ required: true }]}
                     >
-                      <Select defaultValue={datalist?datalist.accountType.type:""}>
+                      <Select >
                         <Option value="个人">个人</Option>
                         <Option value="公司">公司</Option>
                         <Option value="未知">未知</Option>
@@ -108,8 +65,7 @@ class EditCustomCreate extends Component {
                       label="登录账号(邮箱)"
                       rules={[{ required: true }]}
                     >
-                      <Input placeholder="请输入账号"
-                      defaultValue={datalist?datalist.accountType.loginAccount:""} />
+                      <Input placeholder="请输入账号" />
                     </Form.Item></Col>
                   <Col span={8} offset={4}>
                     <Form.Item
@@ -117,7 +73,7 @@ class EditCustomCreate extends Component {
                       label="客户组"
                       rules={[{ required: true }]}
                     >
-                      <Select defaultValue={datalist?datalist.accountType.group:""}>
+                      <Select>
                         <Option value="默认账户">默认账户</Option>
                         <Option value="账户B">账户B</Option>
                       </Select>
@@ -134,7 +90,7 @@ class EditCustomCreate extends Component {
                       label="国籍"
                       rules={[{ required: true }]}
                     >
-                      <Select defaultValue={datalist?datalist.basicInfo.nationality:""}>
+                      <Select >
                         {nationalityList.map((item) => <Option value={item}>{item}</Option>)}
                       </Select>
                     </Form.Item></Col>
@@ -144,7 +100,7 @@ class EditCustomCreate extends Component {
                       label="称谓"
                       rules={[{ required: true }]}
                     >
-                      <Select defaultValue={datalist?datalist.basicInfo.appellation:""}>
+                      <Select >
                         <Option value="先生">先生</Option>
                         <Option value="女士">女士</Option>
                       </Select>
@@ -157,8 +113,7 @@ class EditCustomCreate extends Component {
                       label="姓名"
                       rules={[{ required: true }]}
                     >
-                      <Input placeholder="请输入姓名"
-                      defaultValue={datalist?datalist.basicInfo.name:""} />
+                      <Input placeholder="请输入姓名"/>
                     </Form.Item></Col>
                   <Col span={8} offset={4}>
                     <Form.Item
@@ -166,7 +121,7 @@ class EditCustomCreate extends Component {
                       label="生日"
                       rules={[{ required: true }]}
                     >
-                      <DatePicker defaultValue={moment(`${datalist?datalist.basicInfo.birthday:""}`, dateFormat)} format={dateFormat} />
+                      <DatePicker  format={dateFormat} />
                     </Form.Item></Col>
                 </Row>
                 <Row gutter={16}>
@@ -176,8 +131,7 @@ class EditCustomCreate extends Component {
                       label="住址"
                       rules={[{ required: true }]}
                     >
-                      <Input  placeholder="请输入住址"
-                      defaultValue={datalist?datalist.basicInfo.address:""} />
+                      <Input  placeholder="请输入住址"/>
                     </Form.Item></Col>
                 </Row>
                 <Row gutter={16}>
@@ -187,7 +141,7 @@ class EditCustomCreate extends Component {
                       label="证件类型"
                       rules={[{ required: true }]}
                     >
-                      <Select defaultValue={datalist?datalist.basicInfo.idtype:""}>
+                      <Select>
                         {idTypeList.map((item) => <Option value={item}>{item}</Option>)}
                       </Select>
                     </Form.Item></Col>
@@ -197,8 +151,7 @@ class EditCustomCreate extends Component {
                       label="证件号码"
                       rules={[{ required: true }]}
                     >
-                      <Input  placeholder="请输入证件号码"
-                      defaultValue={datalist?datalist.basicInfo.idnum:""} />
+                      <Input  placeholder="请输入证件号码"/>
                     </Form.Item></Col>
                 </Row>
 
@@ -213,8 +166,7 @@ class EditCustomCreate extends Component {
                       label="手机信息"
                       rules={[{ required: true }]}
                     >
-                      <Input 
-                      defaultValue={datalist?datalist.contactInfo.mobilePhone:""} addonBefore={prefixSelector} style={{ width: '100%' }} />
+                      <Input addonBefore={prefixSelector} style={{ width: '100%' }} />
                     </Form.Item></Col>
                   <Col span={8} offset={4}>
                     <Form.Item
@@ -222,8 +174,7 @@ class EditCustomCreate extends Component {
                       label="电子邮箱"
                       rules={[{ required: true }]}
                     >
-                      <Input  placeholder="请输入电子邮箱"
-                      defaultValue={datalist?datalist.contactInfo.mail:""} />
+                      <Input  placeholder="请输入电子邮箱" />
                     </Form.Item></Col>
                 </Row>
                 <Row gutter={16}>
@@ -232,16 +183,14 @@ class EditCustomCreate extends Component {
                       name="fax"
                       label="传真号码"
                     >
-                      <Input  placeholder="请输入传真号码"
-                      defaultValue={datalist?datalist.contactInfo.fax:""} />
+                      <Input  placeholder="请输入传真号码"/>
                     </Form.Item></Col>
                   <Col span={8} offset={4}>
                     <Form.Item
                       name="homePhone"
                       label="住宅电话"
                     >
-                      <Input  placeholder="请输入住宅电话"
-                      defaultValue={datalist?datalist.contactInfo.homePhone:""} />
+                      <Input  placeholder="请输入住宅电话" />
                     </Form.Item></Col>
                 </Row>
               </Form>
@@ -255,8 +204,7 @@ class EditCustomCreate extends Component {
                       label="持有人姓名"
                       rules={[{ required: true }]}
                     >
-                      <Input  placeholder="请输入持有人姓名"
-                      defaultValue={datalist?datalist.bankInfo.name:""} />
+                      <Input  placeholder="请输入持有人姓名" />
                     </Form.Item></Col>
                   <Col span={8} offset={4}>
                     <Form.Item
@@ -264,8 +212,7 @@ class EditCustomCreate extends Component {
                       label="银行名称"
                       rules={[{ required: true }]}
                     >
-                      <Input  placeholder="请输入银行名称"
-                      defaultValue={datalist?datalist.bankInfo.bank:""} />
+                      <Input  placeholder="请输入银行名称" />
                     </Form.Item></Col>
                 </Row>
                 <Row gutter={16}>
@@ -274,16 +221,14 @@ class EditCustomCreate extends Component {
                       name="account"
                       label="银行账号"
                     >
-                      <Input  placeholder="请输入银行账号"
-                      defaultValue={datalist?datalist.bankInfo.account:""} />
+                      <Input  placeholder="请输入银行账号" />
                     </Form.Item></Col>
                   <Col span={8} offset={4}>
                     <Form.Item
                       name="code"
                       label="银行代码(Swift Code)"
                     >
-                      <Input placeholder="请输入银行代码"
-                      defaultValue={datalist?datalist.bankInfo.code:""} />
+                      <Input placeholder="请输入银行代码" />
                     </Form.Item></Col>
                 </Row>
                 <Row gutter={16}>
@@ -293,8 +238,7 @@ class EditCustomCreate extends Component {
                       label="开户行地址"
                       rules={[{ required: true }]}
                     >
-                      <Input placeholder="请输入开户行地址"
-                      defaultValue={datalist?datalist.bankInfo.address:""} />
+                      <Input placeholder="请输入开户行地址"/>
                     </Form.Item></Col>
                 </Row>
                 <Row gutter={16}>
@@ -303,7 +247,7 @@ class EditCustomCreate extends Component {
                       name="remarks"
                       label="备注"
                     >
-                      <TextArea defaultValue={datalist?datalist.bankInfo.remarks:""} />
+                      <TextArea />
                     </Form.Item></Col>
                 </Row>
               </Form>

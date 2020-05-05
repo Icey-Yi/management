@@ -1,47 +1,35 @@
 import React, { Component } from 'react'
 import { Link } from 'umi'
-import { Row, Col, Card, Button, Table, Form, Input, Select, List } from 'antd'
-import { PlusOutlined } from '@ant-design/icons';
+import { Card, Button, Table, Input } from 'antd'
+import { PlusOutlined } from '@ant-design/icons'
+import { connect } from 'umi'
 import "./index.less"
 
+@connect(({customManage})=>({customManage}))
 class Management extends Component {
-  state = {
-    select: ["栏目一", "栏目二", "栏目三", "栏目四"],
-    filteredInfo: null,
-    sortedInfo: null,
-    data: [
-      {id:"C1011000",name:"徐小松",type:"个人",phone:"13800001111",
-      mail:"7821423214@qq.com",status:"启用中",registertime:"2017-07-04",details:"查看"},
-      {id:"C1011001",name:"徐小乔",type:"个人",phone:"13800001111",
-      mail:"7821423214@qq.com",status:"启用中",registertime:"2017-07-05",details:"查看"},
-      {id:"C1011002",name:"徐大乔",type:"个人",phone:"13800001111",
-      mail:"7821423214@qq.com",status:"已停用",registertime:"2017-07-06",details:"查看"}
-    ],
-    pagination:{
-      defaultCurrent: 1,
-      defaultPageSize: 10,
-      pageSizeOptions: ['10','20','30','40'],
-      total: 50,
-      showSizeChanger: true,
-      showQuickJumper: true,
-    }
 
-
+  componentDidMount(){
+    const { dispatch } = this.props;
+    dispatch({
+      type: 'customManage/getData'
+    })
   }
-
 
   handleChange = (pagination, filters, sorter) => {
     console.log('Various parameters', pagination, filters, sorter);
-    this.setState({
-      filteredInfo: filters,
-      sortedInfo: sorter,
-    });
+    const { dispatch } = this.props;
+    dispatch({
+      type: 'customManage/handleChange',
+      payload:{
+        filteredInfo: filters,
+        sortedInfo: sorter,
+      }
+    })
   };
 
   render() {
     const { Search } = Input;
-
-    let { sortedInfo, filteredInfo } = this.state;
+    let { sortedInfo, filteredInfo, data, pagination } = this.props.customManage;
     sortedInfo = sortedInfo || {};
     filteredInfo = filteredInfo || {};
     const columns = [
@@ -118,8 +106,8 @@ class Management extends Component {
               style={{ width: 200, float: "right" }}
             />
           </div>
-          <Table columns={columns} dataSource={this.state.data}
-          pagination={this.state.pagination} onChange={this.handleChange} />
+          <Table columns={columns} dataSource={data}
+          pagination={pagination} onChange={this.handleChange} />
         </Card>
       </div>
     )

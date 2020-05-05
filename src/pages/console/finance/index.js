@@ -1,18 +1,28 @@
 import React, { Component } from 'react'
 import { Row, Col, Card, Select, Tabs } from 'antd'
 import Chart from './../../../components/Chart'
-import financedata from './../../../config/financedata'
+import { connect } from 'umi'
 import chartoptions from './../../../config/chartoption'
 import "./index.less"
+
+@connect(({consoleFinance})=>({consoleFinance}))
 class Finance extends Component {
 
+  componentDidMount(){
+    const { dispatch } = this.props;
+    dispatch({
+      type:'consoleFinance/getFinanceData'
+    })
+  }
+
   render() {
+    const { financeData } = this.props.consoleFinance;
     const { TabPane } = Tabs;
     const operations = <Select style={{ width: 80 }} defaultValue="4H">{["4H", "8H", "12H", "1D"].map((item) => { return <Select.Option value={item}>{item}</Select.Option> })}</Select>;
     return (
       <div className="home-wrap">
         <Row gutter={16}>
-          {financedata.map((_, key) => {
+          {financeData.map((_, key) => {
             return (
               <Col key={key} span={8}>
                 <Card bordered={false} className="table" style={{ height: 224 }}>

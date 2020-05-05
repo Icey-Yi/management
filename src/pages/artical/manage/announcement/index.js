@@ -1,38 +1,23 @@
 import React, { Component } from 'react'
 import { Row, Col, Card, Button, Table, Form, Input, Select, List } from 'antd'
 import { PlusOutlined } from '@ant-design/icons';
+import { connect } from 'umi'
 import "./index.less"
 
+@connect(({articalManage})=>({articalManage}))
 class Announcement extends Component {
   state = {
     select: ["栏目一", "栏目二", "栏目三", "栏目四"],
     filteredInfo: null,
     sortedInfo: null,
-    data: [
-      {
-        id: 0, title: "大理石发烧反复拉锯拉法基领导那里风景阿拉斯加发积分大黄蜂绝对是封闭式的范德萨", type: "栏目一",
-        source: "Xu Qingsong", publishtime: "2017-07-04 08:00:00", createtime: "2017-07-13 08:00:00", details: "查看"
-      },
-      {
-        id: 1, title: "大理石发烧反复拉锯拉法基领导那里风景阿拉斯加发积分大黄蜂绝对是封闭式的范德萨", type: "栏目一",
-        source: "Xu Qingsong", publishtime: "2017-07-04 08:00:00", createtime: "2017-07-13 08:00:00", details: "查看"
-      },
-      {
-        id: 2, title: "大理石发烧反复拉锯拉法基领导那里风景阿拉斯加发积分大黄蜂绝对是封闭式的范德萨", type: "栏目一",
-        source: "Xu Qingsong", publishtime: "2017-07-04 08:00:00", createtime: "2017-07-13 08:00:00", details: "查看"
-      },
-      {
-        id: 3, title: "大理石发烧反复拉锯拉法基领导那里风景阿拉斯加发积分大黄蜂绝对是封闭式的范德萨", type: "栏目一",
-        source: "Xu Qingsong", publishtime: "2017-07-04 08:00:00", createtime: "2017-07-13 08:00:00", details: "查看"
-      },
-      {
-        id: 4, title: "大理石发烧反复拉锯拉法基领导那里风景阿拉斯加发积分大黄蜂绝对是封闭式的范德萨", type: "栏目一",
-        source: "Xu Qingsong", publishtime: "2017-07-04 08:00:00", createtime: "2017-07-13 08:00:00", details: "查看"
-      },
-    ]
-
   }
 
+  componentDidMount(){
+    const { dispatch } = this.props;
+    dispatch({
+      type: 'articalManage/getAnnouncementData'
+    })
+  }
 
   handleChange = (pagination, filters, sorter) => {
     console.log('Various parameters', pagination, filters, sorter);
@@ -43,6 +28,7 @@ class Announcement extends Component {
   };
 
   render() {
+    const { announcementData } = this.props.articalManage;
     const { Option } = Select;
     let { sortedInfo, filteredInfo } = this.state;
     sortedInfo = sortedInfo || {};
@@ -117,7 +103,7 @@ class Announcement extends Component {
             </Row>
           </Form>
           <a href="/artical/manage/create/6"><Button icon={<PlusOutlined />} style={{ color: "#1890ff", borderColor: "#1890ff" }}>新建</Button></a>
-          <Table columns={columns} dataSource={this.state.data} onChange={this.handleChange} />
+          <Table columns={columns} dataSource={announcementData} onChange={this.handleChange} />
         </Card>
       </div>
     )
